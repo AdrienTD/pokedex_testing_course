@@ -13,6 +13,7 @@ import main.java.spark.template.velocity.VelocityTemplateEngine;
 
 public class App {
   public static void main(String[] args) {
+	String s = System.getProperty("java.class.path");
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
@@ -251,13 +252,14 @@ public class App {
     }, new VelocityTemplateEngine());
 
 
-    post("/pokedex/name-search", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      String name = request.queryParams("name");
-      model.put("pokemons", Pokemon.searchByName(name));
-      model.put("template", "templates/pokedex.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+// Unsure why name-search is duplicated, so I commented it otherwise the duplicate will never be covered
+//    post("/pokedex/name-search", (request, response) -> {
+//      Map<String, Object> model = new HashMap<String, Object>();
+//      String name = request.queryParams("name");
+//      model.put("pokemons", Pokemon.searchByName(name));
+//      model.put("template", "templates/pokedex.vtl");
+//      return new ModelAndView(model, layout);
+//    }, new VelocityTemplateEngine());
 
     post("/pokedex/strong-against-search", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
